@@ -5,13 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mergington High School Activities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg" />
 </head>
 
 <body>
-  <div class="announcement-banner" role="alert" aria-live="polite">
-    📢 Activity registration is open until the end of the month. Don't lose your spot!
+  <div class="announcement-banner" role="status" aria-live="polite">
+    <div class="announcement-banner-title">Announcements</div>
+    <ul id="announcement-banner-list" class="announcement-banner-list">
+      <li>Loading announcements...</li>
+    </ul>
   </div>
   <header>
     <h1>Mergington High School</h1>
@@ -24,6 +33,9 @@
         </button>
         <div id="user-info" class="hidden">
           <span id="display-name"></span>
+          <button id="manage-announcements-button" class="header-action-button" aria-label="Manage announcements">
+            Manage Announcements
+          </button>
           <button id="logout-button">Logout</button>
         </div>
       </div>
@@ -132,6 +144,46 @@
         <button type="submit">Login</button>
       </form>
       <div id="login-message" class="hidden message"></div>
+    </div>
+  </div>
+
+  <!-- Announcement Management Modal -->
+  <div id="announcements-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content announcements-modal-content">
+      <span class="close-announcements-modal" aria-label="Close announcement manager">&times;</span>
+      <h3>Manage Announcements</h3>
+      <p class="announcements-helper-text">Start date is optional. Expiration date is required.</p>
+
+      <form id="announcement-form">
+        <input type="hidden" id="announcement-id" value="" />
+        <div class="form-group">
+          <label for="announcement-message">Message:</label>
+          <textarea id="announcement-message" required maxlength="500" placeholder="Share an important update with students and teachers"></textarea>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="announcement-start-date">Start date (optional):</label>
+            <input type="date" id="announcement-start-date" />
+          </div>
+          <div class="form-group">
+            <label for="announcement-expiration-date">Expiration date:</label>
+            <input type="date" id="announcement-expiration-date" required />
+          </div>
+        </div>
+        <div class="announcements-form-actions">
+          <button type="submit" id="save-announcement-button">Add Announcement</button>
+          <button type="button" id="reset-announcement-button" class="cancel-btn">Clear</button>
+        </div>
+      </form>
+
+      <div id="announcements-modal-message" class="hidden message"></div>
+
+      <div class="announcements-list-wrapper">
+        <h4>Existing Announcements</h4>
+        <div id="announcements-list" class="announcements-list">
+          <p>Loading...</p>
+        </div>
+      </div>
     </div>
   </div>
 
